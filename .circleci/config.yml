@@ -3,12 +3,12 @@ jobs:
   build:
     docker:
       - image: docker:17.03
-    enviroment:
-      - SHELL /bin/bash
+#    enviroment:
+#      - SHELL /bin/bash
     working_directory: /android-sdk
     steps:
       # Ensure your image has git, otherwise the checkout step will fail
-      - run: apt-get -qq update; apt-get -y install git
+      # - run: apt-get -qq update; apt-get -y install git
       - checkout
       - setup_docker_engine
       - run:

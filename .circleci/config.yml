@@ -2,22 +2,16 @@ version: 2
 jobs:
   build:
     docker:
-      - image: bash:4.4.12
+      - image: docker:17.03
 
     working_directory: /android-sdk
+      enviroment:
+        - SHELL /bin/bash
     steps:
       # Ensure your image has git, otherwise the checkout step will fail
       - run: apt-get -qq update; apt-get -y install git
       - checkout
       - setup_docker_engine
-      - run:
-          name: Install Docker client
-          command: |
-            set -x
-            VER="17.03.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
       - run:
           name: Build Docker image
           command: |

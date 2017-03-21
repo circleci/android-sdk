@@ -3,8 +3,8 @@ jobs:
   build:
     docker:
       - image: golang:1.6.4
-#    enviroment:
-#      - SHELL /bin/bash
+    enviroment:
+      - TAG 1.0.$CIRCLE_BUILD_NUM
     working_directory: /android-sdk
     steps:
       # Ensure your image has git, otherwise the checkout step will fail

@@ -3,8 +3,6 @@ jobs:
   build:
     docker:
       - image: golang:1.6.4
-    enviroment:
-      - TAG 1.0.$CIRCLE_BUILD_NUM
     working_directory: /android-sdk
     steps:
       # Ensure your image has git, otherwise the checkout step will fail
@@ -22,7 +20,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
+            TAG=1.0.$CIRCLE_BUILD_NUM
             docker build -t drazisil/android-sdk:$TAG .
       - run:
           name: Test Docker image
@@ -31,4 +29,5 @@ jobs:
           name: Push Docker image
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+            TAG=1.0.$CIRCLE_BUILD_NUM
             docker push drazisil/android-sdk:$TAG

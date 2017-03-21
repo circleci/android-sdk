@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: alpine:3.5
+    working_directory: /android-sdk
+    steps:
+      - checkout
+      - setup_docker_engine
+      - run:
+          name: Build Docker image
+          command: |
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            docker build -t drazisil/android-sdk:$TAG .
+      - run:
+          name: Test Docker image
+          command: ./test.sh
+      - run:
+          name: Push Docker image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push circleci/cci-demo-docker:$TAG

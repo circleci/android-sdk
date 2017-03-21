@@ -2,13 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:17.03
+      - image: golang:1.6.4
 #    enviroment:
 #      - SHELL /bin/bash
     working_directory: /android-sdk
     steps:
       # Ensure your image has git, otherwise the checkout step will fail
-      - run: apt-get -qq update; apt-get -y install git
+      # - run: apt-get -qq update; apt-get -y install git
       - checkout
       - setup_docker_engine
       - run:

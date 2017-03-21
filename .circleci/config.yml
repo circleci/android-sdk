@@ -31,4 +31,4 @@ jobs:
           name: Push Docker image
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push circleci/cci-demo-docker:$TAG
+            docker push drazisil/android-sdk:$TAG

@@ -7,6 +7,7 @@ WORKDIR /home/android
 ENV SHELL=/bin/bash
 
 RUN mkdir -p ~/android/sdk && \
+    mkdir -p ~/.android/avd && \
     curl -k https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o tools_r25.2.3-linux.zip && \
     unzip tools_r25.2.3-linux.zip -d ~/android/sdk
 

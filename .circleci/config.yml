@@ -3,7 +3,10 @@ jobs:
   build:
     docker:
       - image: bash:4.4.12
+
     working_directory: /android-sdk
+    enviroment:
+      - SHELL /bin/bash
     steps:
       - checkout
       - setup_docker_engine

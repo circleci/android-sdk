@@ -4,5 +4,4 @@ set -e
 set -o pipefail
 
 echo "Testing for presence of sdkmanager"
-docker run -it $DOCKER_HASH moo
 docker run -it $DOCKER_HASH sdkmanager --list

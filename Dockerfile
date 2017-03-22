@@ -6,7 +6,23 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get -y install libpulse0 \
       libgl1-mesa-glx pciutils mesa-utils curl unzip \
-      lib32z1 lib32ncurses5 lib32stdc++6 openjdk-7-jdk
+      lib32z1 lib32ncurses5 lib32stdc++6
+
+ # Add the Oracle Java 8 PPA
+RUN apt-get update && \
+    apt-get install -y software-properties-common curl unzip git libpulse0 \
+      libgl1-mesa-glx pciutils mesa-utils \
+      lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 && \
+    add-apt-repository ppa:webupd8team/java
+
+# Set the Oracle Java license as read and accepted
+# Install Oracle Java 8 JDK
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | \
+      debconf-set-selections && \
+    echo debconf shared/accepted-oracle-license-v1-1 seen true | \
+      debconf-set-selections && \
+    apt-get update && apt-get install -y oracle-java8-installer && \
+    echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/' >> /home/android/.bashrc
 
 RUN useradd -ms /bin/bash android
 

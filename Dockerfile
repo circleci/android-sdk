@@ -6,8 +6,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get -y install libpulse0 \
       libgl1-mesa-glx pciutils mesa-utils \
-      lib32z1 lib32ncurses5 lib32stdc++6 openjdk8
-      
+      lib32z1 lib32ncurses5 lib32stdc++6 java-1.8.0-openjdk
+
 RUN useradd -ms /bin/bash android
 
 USER android

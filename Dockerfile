@@ -1,8 +1,13 @@
-FROM openjdk:8
+FROM ubuntu:14.04
+ENV ANDROID_SDK_ROOT /home/android/Android/sdk
+
+# Change default shell to bash
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get -y install libpulse0 \
       libgl1-mesa-glx pciutils mesa-utils \
-      lib32z1 lib32ncurses5 lib32stdc++6
+      lib32z1 lib32ncurses5 lib32stdc++6 openjdk8
+      
 RUN useradd -ms /bin/bash android
 
 USER android

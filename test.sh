@@ -8,4 +8,4 @@ docker run -it $DOCKER_HASH sdkmanager --list
 echo "Testing for presence of avdmanager"
 docker run -it $DOCKER_HASH avdmanager list
 echo "Testing for presence of mksdcard"
-docker run -it $DOCKER_HASH mksdcard
+docker run -it $DOCKER_HASH which mksdcard

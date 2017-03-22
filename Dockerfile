@@ -1,6 +1,8 @@
 FROM openjdk:8
 
-RUN apt-get update && apt-get -y install lib32stdc++6 libqt5widgets5
+RUN apt-get update && apt-get -y install libpulse0 \
+      libgl1-mesa-glx pciutils mesa-utils \
+      lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
 RUN useradd -ms /bin/bash android
 
 USER android
@@ -18,4 +20,5 @@ ENV PATH=$PATH:$ANDROID_ROOT_SDK/tools:$ANDROID_ROOT_SDK/tools/bin:$ANDROID_ROOT
 RUN mkdir -p /home/android/.android && \
     touch /home/android/.android/repositories.cfg
 
-RUN echo "y" | sdkmanager --update
+RUN echo "y" | sdkmanager --update && sdkmanager "system-images;android-25;google_apis;armeabi-v7a" \
+    "platforms;android-25" "build-tools;25.0.2"

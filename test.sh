@@ -5,6 +5,7 @@ set -o pipefail
 
 echo "Testing for presence of sdkmanager"
 docker run -it $DOCKER_HASH sdkmanager --list
-echo "Testing ability to create AVD with sdcard"
-docker run -it $DOCKER_HASH which avdmanager
-docker run -it $DOCKER_HASH echo "n" | avdmanager -v create avd -n androidlearn -k "system-images;android-25;google_apis;armeabi-v7a" -c 512M -g google_apis  -d "Nexus 7 2013"
+echo "Testing for presence of avdmanager"
+docker run -it $DOCKER_HASH avdmanager
+echo "Testing for presence of mksdcard"
+docker run -it $DOCKER_HASH mksdcard

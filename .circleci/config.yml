@@ -27,7 +27,4 @@ jobs:
           command: ./test.sh
       - run:
           name: Push Docker image
-          command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            TAG=1.0.$CIRCLE_BUILD_NUM
-            docker push drazisil/android-sdk:$TAG
+          command: ./deploy.sh

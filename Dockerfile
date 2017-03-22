@@ -1,7 +1,6 @@
 FROM openjdk:8
 
-RUN apt-get update && apt-get -y install lib32stdc++6
-
+RUN apt-get update && apt-get -y install lib32stdc++6 libqt5widgets5
 RUN useradd -ms /bin/bash android
 
 USER android

@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 ENV ANDROID_SDK_ROOT /home/android/Android/sdk
 
+RUN useradd -ms /bin/bash android
+
 # Change default shell to bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -23,8 +25,6 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | \
       debconf-set-selections && \
     apt-get update && apt-get install -y oracle-java8-installer && \
     echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/' >> /home/android/.bashrc
-
-RUN useradd -ms /bin/bash android
 
 USER android
 WORKDIR /home/android

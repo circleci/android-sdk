@@ -1,5 +1,7 @@
 FROM openjdk:8
 
+RUN apt-get update && apt-get -y install lib32stdc++6
+
 RUN useradd -ms /bin/bash android
 
 USER android

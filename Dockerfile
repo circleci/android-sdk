@@ -39,7 +39,7 @@ RUN mkdir -p ~/android/sdk && \
     unzip tools_r25.2.3-linux.zip -d ~/android/sdk
 
 ENV ANDROID_HOME /home/android/android/sdk
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_ROOT_SDK/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
 
 RUN mkdir -p /home/android/.android && \
     touch /home/android/.android/repositories.cfg

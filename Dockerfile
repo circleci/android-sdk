@@ -2,7 +2,8 @@ FROM ubuntu:14.04
 ENV ANDROID_HOME /home/android/android/sdk
 ENV ADB_INSTALL_TIMEOUT 120
 
-RUN useradd -ms /bin/bash android && echo "android" | passwd foo --stdin
+RUN useradd android -p `mkpasswd android` && \
+    sudo adduser android sudo
 
 # Change default shell to bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh

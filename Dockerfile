@@ -3,7 +3,7 @@ ENV ANDROID_HOME /home/android/android/sdk
 ENV ADB_INSTALL_TIMEOUT 120
 
 RUN useradd -ms /bin/bash android && \
-    echo "android" | chpasswd android --stdin && \
+    echo "android" | passwd android android && \
     sudo adduser android sudo
 
 # Change default shell to bash

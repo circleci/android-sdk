@@ -1,14 +1,14 @@
 FROM ubuntu:14.04
-ENV ANDROID_SDK_ROOT /home/android/Android/sdk
+ENV ANDROID_SDK_ROOT /home/android/android/sdk
 
 RUN useradd -ms /bin/bash android
 
 # Change default shell to bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN apt-get update && apt-get -y install libpulse0 \
-      libgl1-mesa-glx pciutils mesa-utils curl unzip \
-      lib32z1 lib32ncurses5 lib32stdc++6
+RUN apt-get update && apt-get -y install curl unzip libpulse0 \
+      libgl1-mesa-glx pciutils mesa-utils \
+      lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
 
  # Add the Oracle Java 8 PPA
 RUN apt-get update && \

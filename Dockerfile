@@ -41,6 +41,10 @@ RUN mkdir -p ~/android/sdk && \
 ENV ANDROID_HOME /home/android/android/sdk
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
 
+RUN touch ~/.bashrc && \
+    echo "export ANDROID_HOME=/home/android/android/sdk" >> ~/.bashrc && \
+    echo export "PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator" >> ~/.bashrc
+
 RUN mkdir -p /home/android/.android && \
     touch /home/android/.android/repositories.cfg
 

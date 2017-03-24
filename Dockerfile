@@ -38,12 +38,8 @@ RUN mkdir -p ~/android/sdk && \
     curl -k https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o tools_r25.2.3-linux.zip && \
     unzip tools_r25.2.3-linux.zip -d ~/android/sdk
 
-ENV ANDROID_HOME /home/android/android/sdk
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
-
-RUN touch ~/.bashrc && \
-    echo "export ANDROID_HOME=/home/android/android/sdk" >> ~/.bashrc && \
-    echo export "PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator" >> ~/.bashrc
+ENV ANDROID_ROOT_SDK=/home/android/android/sdk
+ENV PATH=$PATH:$ANDROID_ROOT_SDK/tools:$ANDROID_ROOT_SDK/tools/bin:$ANDROID_ROOT_SDK/platform-tools:$ANDROID_ROOT_SDK/emulator
 
 RUN mkdir -p /home/android/.android && \
     touch /home/android/.android/repositories.cfg

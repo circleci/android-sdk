@@ -47,3 +47,6 @@ RUN mkdir -p /home/android/.android && \
 # Update SDK manager and install system image, platform and build tools
 RUN echo "y" | sdkmanager --update && sdkmanager "system-images;android-25;google_apis;armeabi-v7a" \
     "platforms;android-25" "build-tools;25.0.2"
+
+# Overwrite the old emulator with the latest one
+RUN cp $ANDROID_HOME/emulator/emulator $ANDROID_HOME/tools/emulator

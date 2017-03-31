@@ -1,7 +1,10 @@
-FROM ubuntu:14.04
-ENV ANDROID_SDK_ROOT /home/android/android/sdk
+FROM ubuntu:16.04
+ENV ANDROID_HOME /home/android/android/sdk
+ENV ADB_INSTALL_TIMEOUT 120
 
-RUN useradd -ms /bin/bash android
+RUN useradd -ms /bin/bash android && \
+    echo "android:android" | chpasswd && \
+    sudo adduser android sudo
 
 # Change default shell to bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -35,8 +38,8 @@ RUN mkdir -p ~/android/sdk && \
     curl -k https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o tools_r25.2.3-linux.zip && \
     unzip tools_r25.2.3-linux.zip -d ~/android/sdk
 
-ENV ANDROID_ROOT_SDK=/home/android/android/sdk
-ENV PATH=$PATH:$ANDROID_ROOT_SDK/tools:$ANDROID_ROOT_SDK/tools/bin:$ANDROID_ROOT_SDK/platform-tools:$ANDROID_ROOT_SDK/emulator
+ENV ANDROID_HOME=/home/android/android/sdk
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 RUN mkdir -p /home/android/.android && \
     touch /home/android/.android/repositories.cfg

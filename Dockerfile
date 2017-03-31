@@ -11,7 +11,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get -y install curl unzip libpulse0 \
       libgl1-mesa-glx pciutils mesa-utils sudo \
-      lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6
+      lib32z1 lib32ncurses5 lib32stdc++6
 
  # Add the Oracle Java 8 PPA
 RUN apt-get update && \

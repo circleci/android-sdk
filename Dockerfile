@@ -1,16 +1,11 @@
 FROM ubuntu:16.04
 
-# Create android user, with password android
-RUN useradd -ms /bin/bash android && \
-    echo "android:android" | chpasswd && \
-    adduser android sudo
-
-# Change default shell to bash
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+ARG sdk_version=sdk-tools-linux-3859397.zip
+ARG android_home=/opt/android/sdk
 
 # Add the Oracle Java 8 PPA
 RUN apt-get update && \
-    apt-get install -y software-properties-common curl unzip git libpulse0 \
+    apt-get install --yes software-properties-common curl unzip git libpulse0 \
       libgl1-mesa-glx pciutils mesa-utils sudo \
       lib32z1 lib32ncurses5 lib32stdc++6 && \
     add-apt-repository ppa:webupd8team/java
@@ -21,32 +16,28 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | \
       debconf-set-selections && \
     echo debconf shared/accepted-oracle-license-v1-1 seen true | \
       debconf-set-selections && \
-    apt-get update && apt-get install -y oracle-java8-installer && \
-    echo 'export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre/' >> /home/android/.bashrc
+    apt-get update && apt-get install -y oracle-java8-installer
 
-# Switch to user android and set default shell to bash
-USER android
-WORKDIR /home/android
-ENV SHELL=/bin/bash
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle/jre/
 
 # Download and install Android SDK
-RUN mkdir -p ~/android/sdk && \
-    mkdir -p ~/.android/avd && \
-    curl -k https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -o tools_r25.2.3-linux.zip && \
-    unzip tools_r25.2.3-linux.zip -d ~/android/sdk
+RUN mkdir -p ${android_home} && \
+    curl --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
+    unzip /tmp/${sdk_version} -d ${android_home}
 
 # Set environmental variables
-ENV ANDROID_HOME /home/android/android/sdk
+ENV ANDROID_HOME ${android_home}
 ENV ADB_INSTALL_TIMEOUT 120
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
 # Create dummy file to avoid warning
-RUN mkdir -p /home/android/.android && \
-    touch /home/android/.android/repositories.cfg
+#RUN mkdir -p /home/android/.android && \
+#    touch /home/android/.android/repositories.cfg
+
+RUN sdkmanager --update && yes | sdkmanager --licenses
 
 # Update SDK manager and install system image, platform and build tools
-RUN echo "y" | sdkmanager --update && sdkmanager "system-images;android-25;google_apis;armeabi-v7a" \
-    "platforms;android-25" "build-tools;25.0.2"
+RUN sdkmanager "system-images;android-25;google_apis;armeabi-v7a" "platforms;android-25" "build-tools;25.0.2"
 
 # Overwrite the old emulator with the latest one
-RUN cp $ANDROID_HOME/emulator/emulator $ANDROID_HOME/tools/emulator
+#RUN cp $ANDROID_HOME/emulator/emulator $ANDROID_HOME/tools/emulator

@@ -30,6 +30,8 @@ ENV ANDROID_HOME ${android_home}
 ENV ADB_INSTALL_TIMEOUT 120
 ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
+ADD dotfiles/repositories.cfg /root/.android/
+
 # Create dummy file to avoid warning
 #RUN mkdir -p /home/android/.android && \
 #    touch /home/android/.android/repositories.cfg

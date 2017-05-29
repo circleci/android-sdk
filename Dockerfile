@@ -37,7 +37,14 @@ ENV PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platfor
 RUN sdkmanager --update && yes | sdkmanager --licenses
 
 # Update SDK manager and install system image, platform and build tools
-RUN sdkmanager "system-images;android-25;google_apis;armeabi-v7a" "platforms;android-25" "build-tools;25.0.2"
+RUN echo y | sdkmanager "platforms;android-25"
+RUN echo y | sdkmanager "platform-tools"
+RUN echo y | sdkmanager "build-tools;25.0.2"
+RUN echo y | sdkmanager "extras;android;m2repository"
+RUN echo y | sdkmanager "extras;google;m2repository"
+RUN echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
 
 # Overwrite the old emulator with the latest one
 #RUN cp $ANDROID_HOME/emulator/emulator $ANDROID_HOME/tools/emulator
+
+# /root/.android/repositories.cfg

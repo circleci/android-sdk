@@ -3,7 +3,8 @@ FROM openjdk:8-jdk
 ARG sdk_version=sdk-tools-linux-3859397.zip
 ARG android_home=/opt/android/sdk
 
-RUN apt-get update && apt-get install --yes xvfb
+RUN apt-get update && \
+    apt-get install --yes xvfb gcc-multilib lib32z1 lib32stdc++6
 
 # Download and install Android SDK
 RUN mkdir -p ${android_home} && \
@@ -13,7 +14,6 @@ RUN mkdir -p ${android_home} && \
 # Set environmental variables
 ENV ANDROID_HOME ${android_home}
 ENV ADB_INSTALL_TIMEOUT 120
-ENV DISPLAY :99
 ENV PATH=${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
 
 ADD dotfiles/repositories.cfg /root/.android/

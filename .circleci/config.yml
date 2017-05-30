@@ -8,10 +8,14 @@ jobs:
       - checkout
       - setup_docker_engine
       - run:
+          command: ls -lah
+      - run:
           name: Build Docker image
           command: |
             TAG=0.$CIRCLE_BUILD_NUM
-            docker build -t circleci/android-sdk:$TAG .
+            docker build -t marcomorain/android:0.$TAG .
+      - run:
+          command: ls -lah
       - run:
           name: Test Docker image
           command: ./test.sh

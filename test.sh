@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 DOCKER_HASH=`docker images | grep android | awk '{split($0,array," ")} END{print array[3]}'`
 set -e
 set -o pipefail

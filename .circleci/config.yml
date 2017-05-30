@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    environment:
+      TAG: 0.$CIRCLE_BUILD_NUM
+      TERM: dumb
     docker:
       - image: docker:stable-git
     working_directory: /android-sdk
@@ -8,17 +11,11 @@ jobs:
       - checkout
       - setup_docker_engine
       - run:
-          command: ls -lah
-      - run:
           name: Build Docker image
-          command: |
-            TAG=0.$CIRCLE_BUILD_NUM
-            docker build -t marcomorain/android:0.$TAG .
-      - run:
-          command: ls -lah
+          command: docker build -t marcomorain/android:0.$TAG .
       - run:
           name: Test Docker image
           command: ./test.sh
-          #      - run:
-          #name: Push Docker image
-          #command: ./deploy.sh
+      - run:
+          name: Push Docker image
+          command: ./deploy.sh

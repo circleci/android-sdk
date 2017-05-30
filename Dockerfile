@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install --yes xvfb
 # Download and install Android SDK
 RUN mkdir -p ${android_home} && \
     curl --output /tmp/${sdk_version} https://dl.google.com/android/repository/${sdk_version} && \
-    unzip /tmp/${sdk_version} -d ${android_home}
+    unzip -q /tmp/${sdk_version} -d ${android_home}
 
 # Set environmental variables
 ENV ANDROID_HOME ${android_home}

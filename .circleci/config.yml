@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     environment:
-      TAG: 0.$CIRCLE_BUILD_NUM
       TERM: dumb
     docker:
       - image: docker:stable-git
@@ -12,7 +11,7 @@ jobs:
       - setup_docker_engine
       - run:
           name: Build Docker image
-          command: docker build -t marcomorain/android:0.$TAG .
+          command: docker build -t marcomorain/android:0.$CIRCLE_BUILD_NUM .
       - run:
           name: Test Docker image
           command: ./test.sh

@@ -1,5 +1,10 @@
 FROM openjdk:8-jdk
 
+# Initial Command run as `root`.
+
+ADD bin/circle-android /bin/circle-android
+
+# Skip the first line of the Dockerfile template (FROM ${BASE})
 
 # make Apt non-interactive
 RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90circleci \
@@ -60,6 +65,8 @@ USER circleci
 CMD ["/bin/sh"]
 
 
+# Now command run as `circle`
+
 ARG sdk_version=sdk-tools-linux-3859397.zip
 ARG android_home=/opt/android/sdk
 
@@ -92,6 +99,12 @@ RUN echo y | sdkmanager "extras;google;m2repository"
 RUN echo y | sdkmanager "extras;google;google_play_services"
 RUN echo y | sdkmanager "emulator"
 RUN echo y | sdkmanager "build-tools;25.0.3"
-RUN echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
-RUN echo y | sdkmanager "platforms;android-25"
 
+RUN echo y | sdkmanager "platforms;android-23"
+RUN echo y | sdkmanager "system-images;android-23;google_apis;armeabi-v7a"
+
+RUN echo y | sdkmanager "platforms;android-24"
+RUN echo y | sdkmanager "system-images;android-24;google_apis;armeabi-v7a"
+
+RUN echo y | sdkmanager "platforms;android-25"
+RUN echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"

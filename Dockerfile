@@ -92,19 +92,18 @@ RUN mkdir ~/.android && echo '### User Sources for Android SDK Manager' > ~/.and
 RUN sdkmanager --update && yes | sdkmanager --licenses
 
 # Update SDK manager and install system image, platform and build tools
-RUN echo y | sdkmanager "tools"
-RUN echo y | sdkmanager "platform-tools"
-RUN echo y | sdkmanager "extras;android;m2repository"
-RUN echo y | sdkmanager "extras;google;m2repository"
-RUN echo y | sdkmanager "extras;google;google_play_services"
-RUN echo y | sdkmanager "emulator"
-RUN echo y | sdkmanager "build-tools;25.0.3"
+RUN sdkmanager \
+  "tools" \
+  "platform-tools" \
+  "emulator" \
+  "extras;android;m2repository" \
+  "extras;google;m2repository" \
+  "extras;google;google_play_services"
 
-RUN echo y | sdkmanager "platforms;android-23"
-RUN echo y | sdkmanager "system-images;android-23;google_apis;armeabi-v7a"
-
-RUN echo y | sdkmanager "platforms;android-24"
-RUN echo y | sdkmanager "system-images;android-24;google_apis;armeabi-v7a"
-
-RUN echo y | sdkmanager "platforms;android-25"
-RUN echo y | sdkmanager "system-images;android-25;google_apis;armeabi-v7a"
+RUN sdkmanager \
+  "build-tools;25.0.0" \
+  "build-tools;25.0.1" \
+  "build-tools;25.0.2" \
+  "build-tools;25.0.3" \
+  "platforms;android-25" \
+  "system-images;android-25;google_apis;armeabi-v7a"
